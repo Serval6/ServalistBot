@@ -13,7 +13,7 @@ def remove_accents(input_str):
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-FILE = os.getenv('SERVAL_LIST_FILE')
+FILE = os.getenv('LIST_FILE')
 
 client = discord.Client()
 
@@ -39,7 +39,7 @@ async def on_message(message):
         if bool(re.match(r"^servadd (.*)?$", unformated)):
             add = " ".join(message.content.split()[1:])
             unformated = remove_accents(add.lower())
-            if bool(re.match(r"^S[eE][rR][vV][aA][lL][A-Za-z0-9-_]+", remove_accents(add))):
+            if bool(re.match(r"^S[eE][rR][vV][aA][lL][A-Za-z0-9\'_-]+", remove_accents(add))):
                 liste.add(add)
                 lower.add(unformated)
                 with open(FILE, 'a') as f:
@@ -47,17 +47,19 @@ async def on_message(message):
                 await message.channel.send(add+" added!")
             else:
                 await message.channel.send(add+" is invalid!")
-        if bool(re.match(r"^serval[a-z0-9-_]+", unformated)):
+        if bool(re.match(r"^serval[a-z0-9\'_-]+", unformated)):
             response = random.choice(list(liste))
             await message.channel.send(response)
-        if bool(re.match(r".*(serval|lavres).*", unformated)):
+        if bool(re.match(r".*(serval|lavres|bg).*", unformated)):
             await message.add_reaction("❤️")
-        if bool(re.match(r"^([\s\S]* )?(keut|hugo|21|keutar)( [\s\S]*)?$", unformated)):
+        if bool(re.match(r"^([\s\S]* )?(keut|hugo|21|keutar|keuts)( [\s\S]*)?$", unformated)):
             await message.add_reaction("<:21:649012488863744016>")
         if bool(re.match(r"^([\s\S]* )?(man|timo|timothee|rtf\w+)( [\s\S]*)?$", unformated)):
             await message.add_reaction("<:aroufmmh:649013248011665408>")
         if bool(re.match(r"^([\s\S]* )?acu( [\s\S]*)?$", unformated)):
             await message.add_reaction("<:kawai:649018159948627970>")
+        if bool(re.match(r"^([\s\S]* )?flex( [\s\S]*)?$", unformated)):
+            await message.add_reaction("💯")
         if bool(re.match(r"^([\s\S]* )?rose( [\s\S]*)?$", unformated)):
             await message.add_reaction("<:sjw:649015036622405655>")
         if bool(re.match(r".*`{3}[^`]*`{3}.*", unformated)):
@@ -66,4 +68,5 @@ async def on_message(message):
             else:
                 await message.channel.send("FLAG TRICHE !!")
             await message.add_reaction("<:tatamireza:649010752342065153>")
+
 client.run(TOKEN)
