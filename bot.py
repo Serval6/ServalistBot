@@ -62,6 +62,8 @@ async def on_message(message):
             await message.add_reaction("💯")
         if bool(re.match(r"^([\s\S]* )?rose( [\s\S]*)?$", unformated)):
             await message.add_reaction("<:sjw:649015036622405655>")
+        if bool(re.match(r"^([\s\S]* )?viking( [\s\S]*)?$", unformated)):
+            await message.add_reaction("<:viking:777909531187216394>")
         if bool(re.match(r".*`{3}[^`]*`{3}.*", unformated)):
             if bool(re.match(r".*`{3}c\s[^`]*`{3}.*", unformated)):
                 await message.channel.send("FLAG TRICHE !! <@!179881648098246656>")
