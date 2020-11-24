@@ -14,12 +14,16 @@ def remove_accents(input_str):
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 FILE = os.getenv('LIST_FILE')
+MC_FILE = os.getenv('MC_LIST_FILE')
 
 client = discord.Client()
 
 with open(FILE, "r", encoding='utf-8') as f:
     liste = set(s.strip() for s in f.readlines())
     lower = set(remove_accents(l.lower()) for l in liste)
+
+with open(MC_FILE, "r", encoding='utf-8') as f:
+    pseudos = set(p.strip() for p in f.readlines())
 
 @client.event
 async def on_ready():
@@ -70,5 +74,13 @@ async def on_message(message):
             else:
                 await message.channel.send("FLAG TRICHE !!")
             await message.add_reaction("<:tatamireza:649010752342065153>")
+        if bool(re.match(r"^mcpseudo$", unformated)):
+            await message.channel.send("/rg addmember region pseudo\n"+"\n".join(pseudos))
+        if bool(re.match(r"^mcpseudo (.*)$", unformated)):
+            add = " ".join(message.content.split()[1:])
+            pseudos.add(add)
+            with open(MC_FILE, 'a') as f:
+                f.write(add+"\n")
+            await message.channel.send("Mcpseudo: '" + add + "' added!");
 
 client.run(TOKEN)
