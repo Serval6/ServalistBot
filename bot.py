@@ -68,6 +68,12 @@ async def on_message(message):
             await message.add_reaction("💯")
         if bool(re.match(r"^([\s\S]* )?rose( [\s\S]*)?$", unformated)):
             await message.add_reaction("<:sjw:649015036622405655>")
+        if bool(re.match(r"^([\s\S]* )?tiger( [\s\S]*)?$", unformated)):
+            await message.add_reaction("🐯")
+            await message.add_reaction("🐅")
+        if bool(re.match(r"^([\s\S]* )?spider( [\s\S]*)?$", unformated)):
+            await message.add_reaction("🕷️")
+            await message.add_reaction("🕸️")
         if bool(re.match(r"^([\s\S]* )?vikings?( [\s\S]*)?$", unformated)):
             await message.add_reaction("<:viking:777909531187216394>")
 
